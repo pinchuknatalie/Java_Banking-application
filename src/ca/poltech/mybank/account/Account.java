@@ -1,71 +1,88 @@
 package ca.poltech.mybank.account;
 
+import java.util.Date;
 import java.util.UUID;
 
 public class Account {
-
-	private String accountNumber;
-	private String accountType;
-	private double balance;
-	private double limit;
 	
-	public static String SAVING_ACCOUNT = "savings";
-	public static String CHEKING_ACCOUNT = "checking";
+	public static int ACCOUNT_STATUS_ACTIVE = 1;
+	public static int ACCOUNT_STATUS_INACTIVE = 0;
+
+	
+	protected String accountNumber;
+	protected Date openingDate;
+	protected int status;
+	protected double balance;
 	
 	
-	
-	public Account(int accountNumber, String accountType) {
-		//getting an universal Identifier for this account
-		this.accountNumber = UUID.randomUUID().toString();
-		this.accountType = accountType;
-	}
-
-	@Override
-	public String toString() {
-		super.toString();
-
-		return "Account [accountNumber=" + accountNumber + ", accountType=" + accountType + ", balance=" + balance + ", limit=" + limit + "]";
-	}
-
-	public Account(int accountNumber, String accountType, double balance, double limit) {
+	public Account(Date openingDate, String status, double balance) {
 		super();
-		//
-		this.accountNumber = UUID.randomUUID().toString();
-		this.accountType = accountType;
+		this.accountNumber = accountNumber;
+		this.openingDate = openingDate;
 		this.balance = balance;
-		this.limit = limit;
+		this.status = ACCOUNT_STATUS_ACTIVE;
 	}
 
-	public String getAccountNumber() {
+	public boolean deposit(double value) {
+		
+		this.balance += value;
+		return true;
+	
+	public boolean withdraw(double value) {
+		
+		final double finalBalance = this.balance
+	}
+	
+	
+	}
+	public int getAccountNumber() {
 		return accountNumber;
 	}
 
-	public void setAccountNumber(String accountNumber) {
+	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
 	}
 
-	public String getAccountType() {
-		return accountType;
+	public Date getOpeningDate() {
+		return openingDate;
 	}
 
-	public void setAccountType(String accountType) {
-		this.accountType = accountType;
+	public void setOpeningDate(Date openingDate) {
+		this.openingDate = openingDate;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public double getBalance() {
-		return balance + limit;
+		return balance;
 	}
 
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
-
-	public double getLimit() {
-		return limit;
+	
+	
+	public Account(int accountNumber, Date openingdate) {
+		super();
+		this.accountNumber = accountNumber;
+		this.openingDate = openingDate;
 	}
-
-	public void setLimit(double limit) {
-		this.limit = limit;
+	
+	public boolean deposit(double value) {
+		// we will work on that logic later
+		return true;
 	}
-
+	public boolean withdraw(double value) {
+		//we will work on that logic later
+		return true;
+	}
 }
+	
+	
+

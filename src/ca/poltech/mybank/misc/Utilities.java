@@ -1,13 +1,22 @@
 package ca.poltech.mybank.misc;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Scanner;
 
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import ca.poltech.mybank.account.Account;
 import ca.poltech.mybank.address.Address;
 
+
 public class Utilities {
-	
+	private static Pattern canadaZipCodePattern = Pattern.compile(Constants.CANADA_POSTAL_CODE_REGEX);
+	private static Pattern decimalNumberPattern = Pattern.compile(Constants.DECIMAL_NUMBER_REGEX);
+	private static Pattern datePattern = Pattern.compile(Constants.BIRTH_DATE_REGEX);
+	private static SimpleDateFormat dateFormatter = new SimpleDateFormat(Constants.BIRTH_DATE_ACCEPTED_FORMAT);
 	
 	/**
 	 * This method returns a Date out of a calendar
@@ -20,10 +29,11 @@ public class Utilities {
 	
 	public static Date getDate(int year, int month, int dayOfMonth) {
 	
-	Calendar myCalendar  = Calendar.getInstance();
-	myCalendar.set(Calendar.YEAR, 1988);
-	myCalendar.set(Calendar.MONTH,5);
-	myCalendar.set(Calendar.DAY_OF_MONTH, 8);
+	final Calendar myCalendar = Calendar.getInstance();
+	
+	myCalendar.set(Calendar.YEAR, year);
+	myCalendar.set(Calendar.MONTH, month);
+	myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 	
 	return myCalendar.getTime();
 	
