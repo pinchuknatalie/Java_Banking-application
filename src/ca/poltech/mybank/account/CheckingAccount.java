@@ -1,7 +1,6 @@
 package ca.poltech.mybank.account;
 import java.util.Date;
 
-import ca.poltech.mybank.account.Account;
 
 public class CheckingAccount extends Account {
 
@@ -16,41 +15,6 @@ public class CheckingAccount extends Account {
 			super(openingDate, balance);
 			this.serviceFee = serviceFee;
 			this.limit = limit;
-		}
-		
-		public boolean transferTo(Account destination, double value) {
-			// dont acceptnull destinations
-			if(destination ==null) {
-				return false;
-						
-			}
-			// first withdraw from one account and sends to another account
-			if (this.withdraw(value)) {
-				destination.deposit(value);
-			}
-			
-		@Override
-		public boolean withdraw(double value) {
-			final double finalBalance = this.balance + this.limit - value - this.serviceFee;
-			
-			if (finalBalance >= 0)
-				this.balance = finalBalance;
-		
-			return true;
-			
-		}
-		// TODO Before showing the message, check if the user 
-
-
-		@Override
-		public String toString() {
-			return "CheckingAccount [serviceFee=" + serviceFee + ", limit=" + limit + ", accountNumber=" + accountNumber
-					+ ", status=" + status + ", balance=" + balance + "]";
-		}
-		
-		
-			
-		
 		}
 
 		public double getServiceFee() {
@@ -68,4 +32,42 @@ public class CheckingAccount extends Account {
 		public void setLimit(double limit) {
 			this.limit = limit;
 		}
+
+		@Override
+		public boolean withdraw(double value) {
+			
+			final double finalBalance = this.balance - value - this.serviceFee;
+		
+			if(finalBalance < 0) {
+				
+				if(finalBalance >= this.limit) {
+					this.balance = finalBalance;
+					
+					return true;
+				}
+			}
+				
+			
+			else if(finalBalance >= 0) {
+				this.balance = finalBalance;
+				return true;
+			}
+			//TODO Before showing the message, check if the user is already using
+			//his limit and show information
+			System.out.println("You dont have enough funds to execute this transaction. Your current balanc is :"
+			                     + (this.balance +this.limit));
+			return false;
+		}
+
+		@Override
+		public String toString() {
+			return "CheckingAccount [serviceFee=" + serviceFee + ", limit=" + limit + ", accountNumber=" + accountNumber
+					+ ", openingDate=" + openingDate + ", status=" + status + ", balance=" + balance + "]";
+		}
+	
 }
+		
+		
+		
+		
+		
