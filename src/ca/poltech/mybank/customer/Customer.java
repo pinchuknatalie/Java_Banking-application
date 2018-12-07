@@ -1,30 +1,32 @@
 package ca.poltech.mybank.customer;
+
 import java.util.Arrays;
 import java.util.Date;
 
-import ca.poltech.mybank.account.Account;
 import ca.poltech.mybank.address.Address;
+import ca.poltech.mybank.product.Product;
+import ca.poltech.mybank.product.account.Account;
 
 public class Customer {
-	
+
 	private String id;
 	private String name;
 	private String gender;
 	private Date birthDate;
 	private Address address;
-	private Account[] accounts;
-	
+	private Product[] products;
 
-	public Customer(String id, String name, String gender, Date birthDate, Address address, Account[] accounts) {
+	public Customer(String id, String name, String gender, Date birthDate, Address address, Product[] products) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.gender = gender;
 		this.birthDate = birthDate;
 		this.address = address;
-		this.accounts = accounts;
+		this.products = products;
 	}
 
+	// GETTERS AND SETTERS
 
 	public String getId() {
 		return id;
@@ -66,122 +68,68 @@ public class Customer {
 		this.address = address;
 	}
 
-	public Account[] getAccounts() {
-		return accounts;
+	public Product[] getProducts() {
+		return products;
 	}
 
-	public void setAccounts(Account[] accounts) {
-		this.accounts = accounts;
+	public void setProducts(Product[] products) {
+		this.products = products;
 	}
-	
-	public void addAccount(Account account) {
-		
-		//creates an array with one more position so it can hold the new Account
-		Account newArray[] = new Account[accounts.length+1];
-		
-		//copy all the old array accounts to the new array
-		System.arraycopy(accounts, 0, newArray, 0, accounts.length);
-		
-		//putting the newly created account into the last position of the new array
-		newArray[newArray.length-1] = account;
-		
-		//pointing the account memory address to the same memory address as the created array
-		accounts = newArray;
-		
+
+	/**
+	 * Add a new account to the existing accounts array
+	 * 
+	 * @param product
+	 */
+	public void addProduct(Product product) {
+		// creates an array with one more position so it can hold the new Account
+		Product newArray[] = new Product[this.products.length + 1];
+
+		// Copy all the old array accounts to the new array
+		System.arraycopy(this.products, 0, newArray, 0, this.products.length);
+
+		// putting the newly created account into the last position of the new array
+		newArray[newArray.length - 1] = product;
+
+		// Pointing the account memory address to the same memory address as the created
+		// array
+		this.products = newArray;
+
 	}
-		
-		@Override
-		public String toString() {
-			return "Customer [id=" + id + ", name=" + name + ", gender=" + gender + ", address=" + address + ", accounts="
-					+ Arrays.toString(accounts) + "]";
+
+	/**
+	 * Inserts one or more account in the existing account array
+	 * 
+	 * @param accounts
+	 */
+	public void addAccounts(Product[] products) {
+
+		if (products.length > 0) {
+
+			int newArraySize = this.products.length + products.length;
+
+			Product newArray[] = new Product[newArraySize];
+
+			// Copy all the old arrays accounts to the new array
+			System.arraycopy(this.products, 0, newArray, 0, this.products.length);
+			System.arraycopy(products, 0, newArray, this.products.length, products.length);
+
+			this.products = newArray;
+
 		}
-		//TODO at home. add multiple accounts
-		
-		public void addAccount(Account[] newAccounts) {
-			
-			// calculate new required array size
-			int newArraySize = this.accounts.length + newAccounts.length;
-			
-			//create array with a new size
-			Account newArray[] = new Account[newArraySize];
-			
-			// System.arraycopy(src, srcPos, dest, destPos, length);
-			
-			//copy original accounts array (this.accounts) and new accounts array into new array
-			System.arraycopy(this.accounts, 0, newArray, 0, this.accounts.length);
-			System.arraycopy(newAccounts, 0, newArray, this.accounts.length, newAccounts.length);
-			
-			//update the content of original array with new array
-			this.accounts = newArray;
-			
-			//creates an array with one more position so it can hold the new Account
-			//Account newArray[] = new Account[accounts.length+1];
-			
-			//copy all the old array accounts to the new array
-			//System.arraycopy(accounts, 0, newArray, 0, accounts.length);
-			
-			//putting the newly created account into the last position of the new array
-			//newArray[newArray.length-1] = newAccounts;
-			
-			//pointing the account memory address to the same memory address as the created array
-			// accounts = newArray;
-			
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder("Customer [id=" + id + ", name=" + name + ", gender=" + gender
+				+ ", birthDate=" + birthDate + ",\naddress=" + address + ", products=");
+
+		for (Product prod : products) {
+			sb.append("[").append(prod).append("]");
 		}
-		
-		
-		
-		
-		
-		
-		/*int newArraySize = this.accounts.length + accounts.length;
-		
-		Account new Array[] = new Account[newArraySize] {
-		
-		//copy all the old arrays accounts to the new array
-		System.arraycopy(this.accounts, 0, newArray, 0, this.accounts.length);
-		System.arraycopy(accounts, 0, newArray, 0, this.accounts.length, accounts.length);
-		}
-		
-		
-		
-		this.accounts = newArray;
-		
-		*/
-		
-		public void addAccounts(Account[] accounts) {
-			
-			for(int i=0; i<accounts.length; i++) {
-				addAccount(accounts[i]);
-			}
-		}
-		
-		
-		
-		
-		///System.arraycopy(accounts, 0, dest, newArray, 0, accounts.length);
+
+		sb.append("]");
+
+		return sb.toString();
+	}
 }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
