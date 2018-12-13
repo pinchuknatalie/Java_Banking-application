@@ -18,7 +18,7 @@ public class SavingsAccount extends Product implements Account {
 	 * @param interestInterval (in days)
 	 */
 	public SavingsAccount(Date openingDate, double balance, double interestRate, double interestInterval) {
-		super(openingDate, 0D);
+		super(openingDate, 0D, interestInterval);
 		this.balance = balance;
 		this.interestInterval = interestInterval;
 		this.interestRate = interestRate;
@@ -80,7 +80,7 @@ public class SavingsAccount extends Product implements Account {
 	@Override
 	public String toString() {
 		return "SavingsAccount [interestRate=" + interestRate + ", interestInterval=" + interestInterval + ", balance="
-				+ balance + ", id=" + id + ", openingDate=" + openingDate + ", lastUpdate=" + lastUpdate + ", status="
-				+ status + ", monthlyFee=" + monthlyFee + "]";
+				+ balance + ", id=" + id + ", openingDate=" + creationDate + ", lastUpdate=" + lastUpdate + ", status="
+				+ status + ", monthlyFee=" + serviceFee + "]";
 	}
 }

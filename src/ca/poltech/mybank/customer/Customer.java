@@ -1,32 +1,48 @@
 package ca.poltech.mybank.customer;
 
-import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 
+import java.util.Set;
 import ca.poltech.mybank.address.Address;
 import ca.poltech.mybank.product.Product;
-import ca.poltech.mybank.product.account.Account;
+
 
 public class Customer {
 
 	private String id;
-	private String name;
+	private String firstName;
+	private String lastName;
+	private String email;
 	private String gender;
 	private Date birthDate;
 	private Address address;
-	private Product[] products;
+	private Set<Product> products;
 
-	public Customer(String id, String name, String gender, Date birthDate, Address address, Product[] products) {
+	
+	public Customer(String id, String firstName, String lastName, String email, String gender, Date birthDate,
+			Address address, Set<Product> products) {
 		super();
 		this.id = id;
-		this.name = name;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
 		this.gender = gender;
 		this.birthDate = birthDate;
 		this.address = address;
 		this.products = products;
 	}
 
+	
+
 	// GETTERS AND SETTERS
+
+	
+	public Customer(String id2, String name, String gender2, Date birthDate2, Address address2, Product[] products2) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 
 	public String getId() {
 		return id;
@@ -36,12 +52,28 @@ public class Customer {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getGender() {
@@ -68,68 +100,50 @@ public class Customer {
 		this.address = address;
 	}
 
-	public Product[] getProducts() {
+	public Set<Product> getProducts() {
 		return products;
 	}
 
-	public void setProducts(Product[] products) {
+	public void setProducts(Set<Product> products) {
 		this.products = products;
 	}
-
+	
 	/**
-	 * Add a new account to the existing accounts array
+	 * Adds a new account to the existing product list
 	 * 
 	 * @param product
 	 */
 	public void addProduct(Product product) {
-		// creates an array with one more position so it can hold the new Account
-		Product newArray[] = new Product[this.products.length + 1];
-
-		// Copy all the old array accounts to the new array
-		System.arraycopy(this.products, 0, newArray, 0, this.products.length);
-
-		// putting the newly created account into the last position of the new array
-		newArray[newArray.length - 1] = product;
-
-		// Pointing the account memory address to the same memory address as the created
-		// array
-		this.products = newArray;
-
+		this.products.add(product);
 	}
 
 	/**
-	 * Inserts one or more account in the existing account array
+	 * Inserts one or more product in the existing product list
 	 * 
 	 * @param accounts
 	 */
-	public void addAccounts(Product[] products) {
+	public void addProducts(Collection<? extends Product> products) {
 
-		if (products.length > 0) {
+		this.products.addAll(products);		
 
-			int newArraySize = this.products.length + products.length;
+}
 
-			Product newArray[] = new Product[newArraySize];
 
-			// Copy all the old arrays accounts to the new array
-			System.arraycopy(this.products, 0, newArray, 0, this.products.length);
-			System.arraycopy(products, 0, newArray, this.products.length, products.length);
-
-			this.products = newArray;
-
-		}
-	}
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder("Customer [id=" + id + ", name=" + name + ", gender=" + gender
-				+ ", birthDate=" + birthDate + ",\naddress=" + address + ", products=");
-
-		for (Product prod : products) {
+		
+		StringBuilder sb = new StringBuilder("Customer [id=" + id + ", name=" + firstName + " " + lastName + ", email="
+				+ email+ ", gender="
+						+ gender + ", birthDate=" + birthDate + ",\naddress=" + address + ", products=");
+ 		for (Product prod : products) {
 			sb.append("[").append(prod).append("]");
-		}
 
-		sb.append("]");
-
-		return sb.toString();
+ 		}
+		return email;
 	}
 }
+	
+	
+
+	

@@ -68,7 +68,7 @@ public class Utilities {
 			final double monthlyFee = Double
 					.parseDouble(getUserInput("Please enter the monthly fee:", scan, true, true));
 
-			account = new CheckingAccount(openingDate, balance, limit, serviceFee, monthlyFee);
+			account = new CheckingAccount(openingDate, balance, limit, serviceFee, monthlyFee, monthlyFee);
 		} else {
 			final double interestRate = Double
 					.parseDouble(getUserInput("Please enter the interest rate:", scan, true, true));
@@ -186,6 +186,11 @@ public class Utilities {
 			return true;
 		}
 		return false;
+	}
+
+	public static double getDateDiffInDays(Date lastPaymentDate, Date date) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

@@ -6,92 +6,72 @@ import ca.poltech.mybank.misc.Utilities;
 import ca.poltech.mybank.product.Product;
 
 public class CheckingAccount extends Product implements Account {
+ 	
 
-	private double serviceFee;
+	private double transactionFee;
 	private double limit;
 	private double balance;
-	private double monthlyFee;
-
-	public CheckingAccount(Date openingDate, double balance, double limit, double serviceFee, double monthlyFee) {
-		super(openingDate, monthlyFee);
-
-		this.balance = balance;
-		this.serviceFee = serviceFee;
+ 	
+	
+	/**
+	 * @param openingDate
+	 * @param balance
+	 * @param limit
+	 * @param serviceFee
+	 * @param transactionFee
+	 */
+	
+	public CheckingAccount(Date openingDate, double balance, double limit,double serviceFeeInterval, double serviceFee, double transactionFee) {
+		
+		super(openingDate,serviceFeeInterval, serviceFee);
+ 		this.balance = balance;
+		this.transactionFee = transactionFee;
 		this.limit = limit;
 	}
-
-	public double getServiceFee() {
-		return serviceFee;
+ 	public double getServiceFee() {
+		return transactionFee;
 	}
-
-	public void setServiceFee(double serviceFee) {
-		this.serviceFee = serviceFee;
+ 	public void setServiceFee(double serviceFee) {
+		this.transactionFee = serviceFee;
 	}
-
-	public double getLimit() {
-		return limit;
-	}
-
-	public void setLimit(double limit) {
-		this.limit = limit;
-	}
-
-	public double getBalance() {
-		return balance;
-	}
-
-	public void setBalance(double balance) {
-		this.balance = balance;
-	}
-
-	public double getMonthlyFee() {
-		return monthlyFee;
-	}
-
-	public void setMonthlyFee(double monthlyFee) {
-		this.monthlyFee = monthlyFee;
-	}
-
-	@Override
+ 	public double getLimit() {
+		return this.balance = balance;
+	
+ 	}
+ 	
+ 	@Override
 	public final boolean transferTo(Account destination, double value) {
 		return Utilities.transferMoney(this, destination, value);
+ 	}
+		
+		
+ 	@Override
+	public boolean withdraw(double value) {
+		
+		final double finalBalance = this.balance - value - this.transactionFee;
+ 		if (finalBalance < 0) {
+ 		}
+		return false;
+ 		}
+ 			
+ 		
+ 
+ 			
+ 	@Override
+	public String toString() {
+		
+		return "CheckingAccount [serviceFee=" + transactionFee + ", limit=" + limit + ", balance=" + balance
+				+ ", monthlyFee=" + transactionFee + ", id=" + id + ", openingDate=" + creationDate + ", lastUpdate="
+				+ lastUpdate + ", status=" + status + "]";
 	}
-
 	@Override
 	public boolean deposit(double value) {
-		if (value < 0) {
-			return false;
-		}
-
-		this.balance += value;
-		return true;
-	}
-
-	@Override
-	public boolean withdraw(double value) {
-		final double finalBalance = this.balance - value - this.serviceFee;
-
-		if (finalBalance < 0) {
-
-			if (finalBalance >= this.limit) {
-				this.balance = finalBalance;
-				return true;
-			}
-		} else if (finalBalance >= 0) {
-			this.balance = finalBalance;
-			return true;
-		}
-		// TODO at home - Before showing the message, check if the user is already using
-		// his limit and show the information
-		System.out.println("You dont have enough funds to execute this transaction. Your current balance is :"
-				+ (this.balance + this.limit));
+		// TODO Auto-generated method stub
 		return false;
 	}
-
 	@Override
-	public String toString() {
-		return "CheckingAccount [serviceFee=" + serviceFee + ", limit=" + limit + ", balance=" + balance
-				+ ", monthlyFee=" + monthlyFee + ", id=" + id + ", openingDate=" + openingDate + ", lastUpdate="
-				+ lastUpdate + ", status=" + status + "]";
+	public double getBalance() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
